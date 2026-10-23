@@ -1,26 +1,3 @@
-"""
-Data model for AttendanceChimp.
-
-Entities (see app/docs/my-data-model.png):
-
-    auth.User 1 ── 0..1 InstructorProfile 1 ── 0..* Course
-    auth.User 1 ── 0..1 StudentProfile
-    StudentProfile 0..* ── 0..* Course          (through Enrollment)
-    Course 1 ── 0..* Lecture
-    StudentProfile 1 ── 0..* QRCodeUpload
-    Lecture 0..1 ── 0..* QRCodeUpload          (lecture is optional)
-
-Why separate InstructorProfile / StudentProfile instead of one Users table?
-    * Instructors and students carry different attributes (department/office
-      vs. student ID/major). A single table would need many nullable columns
-      that only make sense for one role.
-    * Foreign keys can enforce roles at the database level: Course.instructor
-      can only point at an instructor, Enrollment.student only at a student.
-      With one Users table nothing stops a student from "teaching" a course.
-    * Authentication stays in Django's built-in auth.User; the profiles hold
-      only domain data, so login, passwords and permissions keep working as-is.
-"""
-
 import uuid
 
 from django.conf import settings
