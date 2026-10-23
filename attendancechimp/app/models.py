@@ -216,8 +216,6 @@ class Lecture(models.Model):
 
     Reverse relations:
         qr_uploads:    QRCodeUpload rows matched to this lecture.
-
-    A course has at most one lecture per date.
     """
 
     course = models.ForeignKey(
@@ -228,11 +226,6 @@ class Lecture(models.Model):
 
     class Meta:
         ordering = ["course", "date"]
-        constraints = [
-            models.UniqueConstraint(
-                fields=["course", "date"], name="unique_lecture_per_day"
-            )
-        ]
 
     def __str__(self):
         return f"{self.course.code} on {self.date}"
